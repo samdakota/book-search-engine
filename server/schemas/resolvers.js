@@ -23,14 +23,24 @@ const resolvers = {
             const token = signToken(user);
             return { token, user }
         },
-        addUser: async (parent, args) => {
-            const user = await User.create(args);
+        addUser: async () => {
+            const user = await User.create();
             const token = signToken(user);
 
-            return { token, user }
+            return { token, user };
         },
-        saveBook: () => {
-
+        saveBook: async () => {
+            try {
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: user._id },
+                    { $addToSet: { savedBooks: body } },
+                    { new: true, runValidators: true }
+                );
+                
+                return { updatedUser };
+            } catch (err) {
+                console.error(err);
+            };
         },
         removeBook: () => {
 

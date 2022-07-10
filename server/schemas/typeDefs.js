@@ -6,6 +6,7 @@ const typeDefs = gql`
         username: String
         email: String
         bookCount: Int
+        savedBooks: [Book]
     }
 
     type Book {
@@ -15,10 +16,6 @@ const typeDefs = gql`
         title: String
         image: String
         link: String
-    }
-
-    type savedBooks {
-    
     }
 
     type Query {
